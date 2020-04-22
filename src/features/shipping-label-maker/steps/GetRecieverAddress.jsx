@@ -62,7 +62,7 @@ class GetRecieverAddress extends Component {
             });
             isValid = false;
         }
-        if(!zip || (!parseInt(zip))) {
+        if(!zip || !Number.isInteger(Number(zip))) {
             this.setState({
                 zipError: true,
             });
@@ -127,7 +127,10 @@ class GetRecieverAddress extends Component {
                                 label="Zip" 
                                 variant="outlined" 
                                 value={zip}
-                                onChange={(e) => {this.setState({...this.state, zip: e.target.value, zipError: e.target.value ? false: true})}}
+                                onChange={(e) => {
+                                    const value = e.target.value;
+                                    this.setState({...this.state, zip: value, zipError: value && Number.isInteger(Number(value))? false: true})}
+                                }
                                 helperText={zipError ? "Zip is required" : ""}
                                 error={zipError ? true : false}
                             />
