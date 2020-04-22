@@ -40,7 +40,11 @@ class  Wizard extends Component {
             <Consumer>
                 {
                     ({state, dispatch}) => {
-                        const submitStep = (activeStep) => {
+                        const submitStep = (activeStep, isPrevstep) => {
+                            if( isPrevstep ) {
+                                this.setActiveStep(activeStep);
+                                return;
+                            }
                             if(this.stepRef.current) {
                                 let isValid = true;
                                 if(this.stepRef.current.validate) {
